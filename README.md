@@ -28,20 +28,19 @@ Bisnis e-commerce mulai semakin berkembang, para pelaku bisnis pun mencari cara 
 
 Untuk mengatasi permasalahan di atas, proyek ini bertujuan untuk:
 
-- Mengembangkan sistem yang dapat memberikan saran relevan berdasarkan karakteristik tempat wisata rating dan deskripsi.
+- Mengembangkan sistem yang dapat memberikan rekomendasi relevan sesuai deskripsi dari suatu produk.
 
 - Membangun sistem yang dapat memberikan rekomendasi produk dengan memanfaatkan data rating dan preferensi pengguna untuk memberikan rekomendasi yang sesuai dengan keinginan individual.
 
 ### Solution Statements
 
-1. **Content-Based Filtering**: 
-   - Menganalisis karakteristik tempat wisata seperti nama produk, deskripsi, kategori, dan rating
-   - Merekomendasikan produk yang memiliki karakteristik serupa
+1. Content-Based Filtering: 
+   - Melihat dan menganalisis kesamaan karateristik daribebrapa fitur yang terkait, seperti nama produk, deskripsi produk, dan rating.
+   - Memberikan rekomendasi produk yang memiliki karakteristik serupa.
 
-2. **Collaborative Filtering**:
-   - Menganalisis pola dari rating dan preferensi pengguna
-   - Merekomendasikan tempat wisata berdasarkan kesamaan preferensi dari pengguna lain
-   - Memberikan rekomendasi personal yang disesuaikan dengan riwayat rating pengguna
+2. Collaborative Filtering:
+   - Menganalisis pola dari rating dan preferensi pengguna.
+   - Memberikan rekomendasi produk berdasarkan preferensi personal maupun dari riwayat rating pengguna.
 
 ## Data Understanding
 
@@ -71,7 +70,15 @@ Dataset yang digunakan dalam proyek ini adalah **Amazon Dataset Sales** yang ber
 
 Tahapanan ini dilakukan untuk mempersiapkan data agar siap digunakan dalam pengembangan model. Beberapa teknik yang diterapkan meliputi:
 
-### 1. Data Cleaning
+### Data Preprocessing
+
+Melakukan pemilihan beberapa kolom atau fitur yang memiliki relevansi dengan kesesuaian proyek ini, karena terlalu banyak kolom dari dataset maka dipilih beberapa saja agar memudahkan dalam memproses dataset tersebut.
+```python
+df = df[['user_id','product_id', 'rating', 'rating_count', 'category',
+ 'product_name', 'about_product', 'review_id', 'review_content']]
+```
+
+### Data Cleaning
 
 Tujuan dari tahap adalah untuk membersihkan dan mengekstrak kata-kata penting (tags) dari kolom kategori dalam DataFrame df, agar data menjadi lebih terstruktur dan siap digunakan dalam proses analisis atau pemodelan seperti:
    - Content-based filtering dalam sistem rekomendasi, dengan membandingkan kesamaan antar produk berdasarkan tag.
@@ -81,7 +88,7 @@ Tujuan dari tahap adalah untuk membersihkan dan mengekstrak kata-kata penting (t
    - Menyatukan informasi penting dalam satu kolom untuk digunakan dalam content-based filtering.
    - Mengonversi nilai pada kolom rating ke format numerik (float/int), dan jika ada nilai yang tidak bisa dikonversi (seperti teks atau simbol), akan diubah menjadi NaN.
 
-### 2. Data Preparation Content-Based Filtering
+### Data Preparation Content-Based Filtering
 
 **TF-IDF Vectorization**:
 
@@ -109,7 +116,7 @@ ratings_df = pd.DataFrame({
 })
 ```
 
-### 4. Konversi dan Splitting Data
+### Konversi dan Splitting Data
 
 Penggunaan library surprise mengharuskan konversi data dari pandas ke surprise, agar dapat diproses oleh libarary surprise.
 
